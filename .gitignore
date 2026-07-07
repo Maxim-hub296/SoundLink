@@ -28,3 +28,4 @@ env/
 .DS_Store
 
 BookWorm/settings.py
+/out/
