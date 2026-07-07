@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: soundlink/Dockerfile
-    container_name: drf_web
+    container_name: backend
     command: python soundlink/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
@@ -43,7 +43,7 @@ services:
   frontend:
     build:
       context: ../SoundLinkFront
-    container_name: soundlink_frontend
+    container_name: frontend
     volumes:
       - ../SoundLinkFront:/app
       - /app/node_modules
