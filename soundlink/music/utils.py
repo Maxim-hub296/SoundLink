@@ -1,0 +1,40 @@
+import os
+
+from mutagen.easyid3 import EasyID3
+from mutagen.flac import FLAC
+from mutagen.mp3 import MP3
+from mutagen.mp4 import MP4
+
+
+def extract_audio_metadata(file_path):
+    ext = os.path.splitext(file_path)[1].lower()
+    metadata = {
+        'title': None,
+        'artist': None,
+        'length': None,
+    }
+
+    try:
+        if ext == '.mp3':
+            audio = EasyID3(file_path)
+            metadata['title'] = audio.get('title', [None])[0]
+            metadata['artist'] = audio.get('artist', [None])[0]
+            mp3 = MP3(file_path)
+            metadata['length'] = int(mp3.info.length)
+
+        elif ext in ('.m4a', '.aac', '.mp4'):
+            audio = MP4(file_path)
+            metadata['title'] = audio.get('title', [None])[0]
+            metadata['artist'] = audio.get('artist', [None])[0]
+            metadata['length'] = int(audio.info.length)
+
+        elif ext == '.flac':
+            audio = FLAC(file_path)
+            metadata['title'] = audio.get('title', [None])[0]
+            metadata['artist'] = audio.get('artist', [None])[0]
+            metadata['length'] = int(audio.info.length)
+
+    except Exception:
+        pass
+
+    return metadata
