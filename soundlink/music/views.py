@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 
 from .models import Song
 from .serializers import SongSerializer
-from .utils import extract_audio_metadata
+from .utils import extract_audio_metadata, delete_audio_file
 
 
 # Create your views here.
@@ -40,3 +40,16 @@ class SongListView(APIView):
         songs = Song.objects.filter(user=request.user)
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)
+
+
+class SongDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        song = Song.objects.get(user=request.user, id=request.data['id'])
+        file_path = song.file.path
+        song.delete()
+        ok = delete_audio_file(file_path)
+        if not ok:
+            return Response({"error": "File not deleted"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_204_NO_CONTENT)

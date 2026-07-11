@@ -38,3 +38,11 @@ def extract_audio_metadata(file_path):
         pass
 
     return metadata
+
+
+def delete_audio_file(file_path):
+    try:
+        os.remove(file_path)
+        return True
+    except Exception as e:
+        return False
