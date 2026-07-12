@@ -50,7 +50,7 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     def post(self, request):
-        refresh_token = request.data.get('refresh_token', None)
+        refresh_token = request.data.get('refresh', None)
         if not refresh_token:
             return Response({
                 "error": "Необходим Refresh Token"
