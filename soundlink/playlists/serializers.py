@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from soundlink.playlists.models import Playlist
+from .models import Playlist
 
 
 class PlaylistSerializer(serializers.ModelSerializer):

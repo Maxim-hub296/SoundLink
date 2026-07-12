@@ -4,9 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from soundlink.playlists import serializers
-from soundlink.playlists.models import Playlist
-from soundlink.playlists.serializers import PlaylistSerializer
+from .models import Playlist
+from .serializers import PlaylistSerializer
 
 
 class PlaylistCreateView(APIView):
@@ -14,7 +13,7 @@ class PlaylistCreateView(APIView):
     parser_class = [MultiPartParser, FormParser]
 
     def post(self, request):
-        serializer = serializers.PlaylistSerializer(data=request.data)
+        serializer = PlaylistSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
