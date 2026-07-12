@@ -6,7 +6,7 @@ class Song(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, blank=True, null=False)
     artist = models.CharField(blank=True, max_length=200)
-    playlist = models.ManyToManyField('Playlist', related_name='songs')
+    playlist = models.ManyToManyField('playlists.Playlist', related_name='songs')
     length = models.PositiveIntegerField()
     file = models.FileField(upload_to='songs/')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
