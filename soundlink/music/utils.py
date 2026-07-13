@@ -10,7 +10,7 @@ def is_file_size_allowed(file_path) -> bool:
     return 20 <= os.path.getsize(file_path) <= 20 * 1024 * 1024
 
 
-def extract_audio_metadata(file_path):
+def extract_audio_metadata(file_path) -> dict[str, None]:
     ext = os.path.splitext(file_path)[1].lower()
     metadata = {
         'title': None,
@@ -44,7 +44,7 @@ def extract_audio_metadata(file_path):
     return metadata
 
 
-def delete_audio_file(file_path):
+def delete_audio_file(file_path) -> bool:
     try:
         os.remove(file_path)
         return True
