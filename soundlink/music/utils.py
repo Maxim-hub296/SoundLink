@@ -50,3 +50,11 @@ def delete_audio_file(file_path) -> bool:
         return True
     except Exception as e:
         return False
+
+
+def is_allowed_file_type(file_path) -> bool:
+    ext = os.path.splitext(file_path)[1].lower()
+    allowed_types = ["mp3", "flac", "wav"]
+    if ext not in allowed_types:
+        return False
+    return True
