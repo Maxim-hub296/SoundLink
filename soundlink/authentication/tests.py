@@ -16,7 +16,7 @@ class JWTAuthTest(TestCase):
 
     def _get_tokens(self):
         response = self.client.post(
-            "/api/login/", json.dumps(
+            "/api/auth/login/", json.dumps(
                 {
                     "username": "testuser",
                     "password": "test123"
@@ -28,7 +28,7 @@ class JWTAuthTest(TestCase):
 
     def test_login(self):
         response = self.client.post(
-            "/api/login/", json.dumps(
+            "/api/auth/login/", json.dumps(
                 {
                     "username": "testuser",
                     "password": "test123"
@@ -43,7 +43,7 @@ class JWTAuthTest(TestCase):
 
     def test_register(self):
         response = self.client.post(
-            "/api/register/", json.dumps(
+            "/api/auth/register/", json.dumps(
                 {
                     "username": "testuser1",
                     "password": "test1234",
@@ -59,7 +59,7 @@ class JWTAuthTest(TestCase):
     def test_logout_with_refresh_token(self):
         tokens = self._get_tokens()
         response = self.client.post(
-            "/api/logout/", json.dumps(
+            "/api/auth/logout/", json.dumps(
                 {
                     "refresh": tokens["refresh"],
                 }
@@ -72,7 +72,7 @@ class JWTAuthTest(TestCase):
 
     def test_logout_with_invalid_refresh_token(self):
         response = self.client.post(
-            "/api/logout/", json.dumps(
+            "/api/auth/logout/", json.dumps(
                 {
                     "refresh": "hfhdhhdh13",
                 }
@@ -86,7 +86,7 @@ class JWTAuthTest(TestCase):
     def test_get_token_refresh(self):
         tokens = self._get_tokens()
         response = self.client.post(
-            "/api/refresh/", json.dumps(
+            "/api/auth/refresh/", json.dumps(
                 {
                     "refresh": tokens["refresh"],
                 }
