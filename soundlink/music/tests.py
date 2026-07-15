@@ -83,3 +83,9 @@ class SongTestCase(TestCase):
         response = self.client.get("/api/songs/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
+
+    def test_get_one_song(self):
+        id_song = self._upload_song(filename="song1.mp3").data["id"]
+        response = self.client.get(f"/api/songs/{id_song}/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 7)
