@@ -15,7 +15,7 @@ class PlaylistCreateView(APIView):
     def post(self, request):
         serializer = PlaylistSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
